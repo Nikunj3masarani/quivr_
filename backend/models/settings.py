@@ -60,12 +60,20 @@ def get_embeddings():
             base_url=settings.ollama_api_base_url,
         )  # pyright: ignore reportPrivateUsage=none
     else:
+        print("*********************************")
+        print("openAI API Key", settings.openai_api_key)
+        print("Deployment", settings.openai_embeddings_deployment)
+        print("OpenAI API version", settings.openai_embeddings_api_version)
+        print("Azure Endpoint", settings.openai_embeddings_azure_endpoint)
+        print("*********************************")
+
         embeddings = AzureOpenAIEmbeddings(
             openai_api_key=settings.openai_api_key,
             deployment=settings.openai_embeddings_deployment,
             openai_api_version=settings.openai_embeddings_api_version,
             azure_endpoint=settings.openai_embeddings_azure_endpoint
         )
+
     return embeddings
 
 
