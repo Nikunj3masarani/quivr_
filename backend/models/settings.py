@@ -68,7 +68,6 @@ def get_embeddings():
         logger.error("*********************************")
 
         embeddings = AzureOpenAIEmbeddings(
-            openai_api_key=settings.openai_embeddings_api_key,
             deployment=settings.openai_embeddings_deployment,
             openai_api_version=settings.openai_embeddings_api_version,
             azure_endpoint=settings.openai_embeddings_azure_endpoint

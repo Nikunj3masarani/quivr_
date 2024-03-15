@@ -106,7 +106,6 @@ class QuivrRAG(BaseModel):
             )  # pyright: ignore reportPrivateUsage=none
         else:
             return AzureOpenAIEmbeddings(
-                openai_api_key=self.brain_settings.openai_embeddings_api_key,
                 deployment=self.brain_settings.openai_embeddings_deployment,
                 openai_api_version=self.brain_settings.openai_embeddings_api_version,
                 azure_endpoint=self.brain_settings.openai_embeddings_azure_endpoint
