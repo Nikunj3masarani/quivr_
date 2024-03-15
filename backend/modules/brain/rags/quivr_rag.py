@@ -106,7 +106,7 @@ class QuivrRAG(BaseModel):
             )  # pyright: ignore reportPrivateUsage=none
         else:
             return AzureOpenAIEmbeddings(
-                openai_api_key=self.brain_settings.openai_api_key,
+                openai_api_key=self.brain_settings.openai_embeddings_api_key,
                 deployment=self.brain_settings.openai_embeddings_deployment,
                 openai_api_version=self.brain_settings.openai_embeddings_api_version,
                 azure_endpoint=self.brain_settings.openai_embeddings_azure_endpoint
@@ -194,7 +194,6 @@ class QuivrRAG(BaseModel):
             verbose=False,
             callbacks=callbacks,
             api_base=api_base,
-
         )
 
     def _combine_documents(

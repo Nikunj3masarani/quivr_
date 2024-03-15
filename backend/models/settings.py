@@ -21,8 +21,9 @@ class BrainSettings(BaseSettings):
     model_config = SettingsConfigDict(validate_default=False)
 
     openai_api_key: str = ""
+    openai_embeddings_api_key: str = ""
     openai_embeddings_deployment: str = ""
-    openai_embeddings_api_version:str  = ""
+    openai_embeddings_api_version: str = ""
     openai_embeddings_azure_endpoint: str = ""
 
     supabase_url: str = ""
@@ -32,7 +33,6 @@ class BrainSettings(BaseSettings):
     ollama_api_base_url: str = None
     langfuse_public_key: str = None
     langfuse_secret_key: str = None
-
 
 
 class ResendSettings(BaseSettings):
@@ -67,9 +67,8 @@ def get_embeddings():
         logger.error("Azure Endpoint".format(settings.openai_embeddings_azure_endpoint))
         logger.error("*********************************")
 
-
         embeddings = AzureOpenAIEmbeddings(
-            openai_api_key=settings.openai_api_key,
+            openai_api_key=settings.openai_embeddings_api_key,
             deployment=settings.openai_embeddings_deployment,
             openai_api_version=settings.openai_embeddings_api_version,
             azure_endpoint=settings.openai_embeddings_azure_endpoint

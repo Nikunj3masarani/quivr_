@@ -45,7 +45,7 @@ def init_vector_store(user_id: UUID) -> CustomSupabaseVectorStore:
         )  # pyright: ignore reportPrivateUsage=none
     else:
         embeddings = AzureOpenAIEmbeddings(
-            openai_api_key=brain_settings.openai_api_key,
+            openai_api_key=brain_settings.openai_embeddings_api_key,
             deployment=brain_settings.openai_embeddings_deployment,
             openai_api_version=brain_settings.openai_embeddings_api_version,
             azure_endpoint=brain_settings.openai_embeddings_azure_endpoint
