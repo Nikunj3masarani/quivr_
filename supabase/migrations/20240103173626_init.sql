@@ -174,7 +174,7 @@ create table "public"."user_daily_usage" (
 
 create table "public"."user_identity" (
     "user_id" uuid not null,
-    "openai_api_key" character varying(25dimension5)
+    "openai_api_key" character varying(255)
 );
 
 
