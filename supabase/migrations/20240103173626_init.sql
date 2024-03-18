@@ -1668,7 +1668,7 @@ CREATE TABLE IF NOT EXISTS vectors (
     content TEXT,
     file_sha1 TEXT,
     metadata JSONB,
-    embedding VECTOR(1536)
+    embedding VECTOR(384)
 );
 
 -- Create function to match vectors
