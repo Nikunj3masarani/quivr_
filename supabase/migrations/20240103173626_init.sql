@@ -159,7 +159,7 @@ create table "public"."summaries" (
     "id" bigint not null default nextval('summaries_id_seq'::regclass),
     "content" text,
     "metadata" jsonb,
-    "embedding" vector(384),
+    "embedding" vector(1536),
     "document_id" uuid
 );
 
@@ -174,7 +174,7 @@ create table "public"."user_daily_usage" (
 
 create table "public"."user_identity" (
     "user_id" uuid not null,
-    "openai_api_key" character varying(255)
+    "openai_api_key" character varying(25dimension5)
 );
 
 
@@ -207,7 +207,7 @@ create table "public"."vectors" (
     "content" text,
     "file_sha1" text,
     "metadata" jsonb,
-    "embedding" vector(384)
+    "embedding" vector(1536)
 );
 
 
@@ -215,7 +215,7 @@ create table "public"."vectors_old" (
     "id" bigint not null default nextval('vectors_id_seq'::regclass),
     "content" text,
     "metadata" jsonb,
-    "embedding" vector(384)
+    "embedding" vector(1536)
 );
 
 
@@ -1668,17 +1668,17 @@ CREATE TABLE IF NOT EXISTS vectors (
     content TEXT,
     file_sha1 TEXT,
     metadata JSONB,
-    embedding VECTOR(384)
+    embedding VECTOR(1536)
 );
 
 -- Create function to match vectors
-CREATE OR REPLACE FUNCTION match_vectors(query_embedding VECTOR(384), match_count INT, p_brain_id UUID)
+CREATE OR REPLACE FUNCTION match_vectors(query_embedding VECTOR(1536), match_count INT, p_brain_id UUID)
 RETURNS TABLE(
     id UUID,
     brain_id UUID,
     content TEXT,
     metadata JSONB,
-    embedding VECTOR(384),
+    embedding VECTOR(1536),
     similarity FLOAT
 ) LANGUAGE plpgsql AS $$
 #variable_conflict use_column
@@ -1718,17 +1718,17 @@ CREATE TABLE IF NOT EXISTS summaries (
     document_id UUID REFERENCES vectors(id),
     content TEXT,
     metadata JSONB,
-    embedding VECTOR(384)
+    embedding VECTOR(1536)
 );
 
 -- Create function to match summaries
-CREATE OR REPLACE FUNCTION match_summaries(query_embedding VECTOR(384), match_count INT, match_threshold FLOAT)
+CREATE OR REPLACE FUNCTION match_summaries(query_embedding VECTOR(1536), match_count INT, match_threshold FLOAT)
 RETURNS TABLE(
     id BIGINT,
     document_id UUID,
     content TEXT,
     metadata JSONB,
-    embedding VECTOR(384),
+    embedding VECTOR(1536),
     similarity FLOAT
 ) LANGUAGE plpgsql AS $$
 #variable_conflict use_column
