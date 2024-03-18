@@ -3,10 +3,7 @@ from typing import Any, List
 from langchain.docstore.document import Document
 from langchain.embeddings.base import Embeddings
 from langchain_community.vectorstores import SupabaseVectorStore
-from logger import get_logger
 from supabase.client import Client
-
-logger = get_logger(__name__)
 
 
 class CustomSupabaseVectorStore(SupabaseVectorStore):

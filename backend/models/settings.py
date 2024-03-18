@@ -3,6 +3,8 @@ from uuid import UUID
 
 from langchain.embeddings.ollama import OllamaEmbeddings
 from langchain.embeddings.azure_openai import AzureOpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from modules.embeddings import EmbeddingsInstance
 from logger import get_logger
 from models.databases.supabase.supabase import SupabaseDB
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -33,6 +35,7 @@ class BrainSettings(BaseSettings):
     ollama_api_base_url: str = None
     langfuse_public_key: str = None
     langfuse_secret_key: str = None
+    embeddings_model_path: str = ""
 
 
 class ResendSettings(BaseSettings):
@@ -60,18 +63,12 @@ def get_embeddings():
             base_url=settings.ollama_api_base_url,
         )  # pyright: ignore reportPrivateUsage=none
     else:
-        logger.error("*********************************")
-        logger.error("openAI API Key {}".format(settings.openai_api_key))
-        logger.error("Deployment {}".format(settings.openai_embeddings_deployment))
-        logger.error("OpenAI API version {}".format(settings.openai_embeddings_api_version))
-        logger.error("Azure Endpoint".format(settings.openai_embeddings_azure_endpoint))
-        logger.error("*********************************")
-
-        embeddings = AzureOpenAIEmbeddings(
-            deployment=settings.openai_embeddings_deployment,
-            openai_api_version=settings.openai_embeddings_api_version,
-            azure_endpoint=settings.openai_embeddings_azure_endpoint
-        )
+        embeddings = EmbeddingsInstance().embedding_model
+        # embeddings = AzureOpenAIEmbeddings(
+        #     deployment=settings.openai_embeddings_deployment,
+        #     openai_api_version=settings.openai_embeddings_api_version,
+        #     azure_endpoint=settings.openai_embeddings_azure_endpoint
+        # )
 
     return embeddings
 

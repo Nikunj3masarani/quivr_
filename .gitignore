@@ -82,3 +82,5 @@ application.log
 backend/celerybeat-schedule.db
 
 open_ai_testing.py
+play/
+all-MiniLM-L6-v2/

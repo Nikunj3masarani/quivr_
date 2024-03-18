@@ -20,6 +20,8 @@ from modules.brain.service.brain_service import BrainService
 from modules.chat.service.chat_service import ChatService
 from pydantic import BaseModel, ConfigDict
 from supabase.client import Client, create_client
+
+from modules.embeddings import EmbeddingsInstance
 from vectorstore.supabase import CustomSupabaseVectorStore
 
 logger = get_logger(__name__)
@@ -88,11 +90,8 @@ class QuivrRAG(BaseModel):
                 base_url=self.brain_settings.ollama_api_base_url
             )  # pyright: ignore reportPrivateUsage=none
         else:
-            return AzureOpenAIEmbeddings(
-                deployment=self.brain_settings.openai_embeddings_deployment,
-                openai_api_version=self.brain_settings.openai_embeddings_api_version,
-                azure_endpoint=self.brain_settings.openai_embeddings_azure_endpoint
-            )
+            return EmbeddingsInstance().embedding_model
+
 
     @property
     def prompt_to_use(self):

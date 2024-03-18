@@ -19,6 +19,7 @@ from modules.chat.dto.inputs import (
 )
 from modules.chat.entity.chat import Chat
 from modules.chat.service.chat_service import ChatService
+from modules.embeddings import EmbeddingsInstance
 from modules.notification.service.notification_service import NotificationService
 from modules.user.entity.user_identity import UserIdentity
 from vectorstore.supabase import CustomSupabaseVectorStore
@@ -44,11 +45,8 @@ def init_vector_store(user_id: UUID) -> CustomSupabaseVectorStore:
             base_url=brain_settings.ollama_api_base_url
         )  # pyright: ignore reportPrivateUsage=none
     else:
-        embeddings = AzureOpenAIEmbeddings(
-            deployment=brain_settings.openai_embeddings_deployment,
-            openai_api_version=brain_settings.openai_embeddings_api_version,
-            azure_endpoint=brain_settings.openai_embeddings_azure_endpoint
-        )
+        embeddings = EmbeddingsInstance().embedding_model
+
     vector_store = CustomSupabaseVectorStore(
         supabase_client, embeddings, table_name="vectors", user_id=user_id
     )
